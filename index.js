@@ -83,6 +83,10 @@ class Apple {
 
 var canvas = document.getElementById('canvas')
 
+// DEFAULT SIZE OF CANVAS
+canvas.height = 400
+canvas.width = 400
+
 const size = canvas.width * 0.05
 const x = Math.floor(Math.random() * canvas.width / size) * size;
 const y = Math.floor(Math.random() * canvas.width / size) * size;
@@ -91,9 +95,9 @@ var game = new Game(x, y, size)
 
 var mensaje = document.getElementById('mensaje')
 
-var buttonNew = document.getElementById('buttonNewGame')
+var container = document.getElementById('full-container')
 
-buttonNew.hidden = true
+container.style.display = 'none'
 var canvasContext = canvas.getContext('2d')
 
 window.onload = () => {
@@ -109,7 +113,7 @@ const show = () => {
         if(!update()) {
             game.isPlaying = false
             mensaje.innerHTML = "¡HAS PERDIDO! \nTu puntuación es de " + (game.snake.tail.length + 1)
-            buttonNew.hidden = false
+            container.style.display = 'flex'
         }
         draw()
     }
@@ -191,8 +195,10 @@ window.addEventListener("keydown", (event) => {
     })
 })
 
+var buttonNew = document.getElementById('buttonNewGame')
+
 buttonNew.addEventListener("click", (event) => {
     game = new Game(x, y, size)
-    buttonNew.hidden = true
+    container.style.display = 'none'
     mensaje.innerHTML = ""
 })

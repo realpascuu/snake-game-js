@@ -1,14 +1,21 @@
 <!DOCTYPE html>
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="styles.css">
+        <link rel="icon" type="image/png" href="images/snake.png">
         <title>Snake Game</title>
     </head>
     <body>
-        <canvas id="canvas" width="400" height="400"></canvas>
-        <div class="mensaje">
-            <p id="mensaje"></p>
+        <h2 class="title">🐍 Snake Game</h2>
+        <div class="center">
+            <canvas id="canvas"></canvas>
         </div>
-        <button id="buttonNewGame">New Game</button>
+        <div class="relative center" id="full-container">
+            <div class="container">
+                <p id="mensaje" class="mensaje">hola</p>
+                <button id="buttonNewGame" class="botonNuevoJuego">New Game</button>
+            </div>
+        </div>
         <script src="index.js"></script>
     </body>
 </html>
