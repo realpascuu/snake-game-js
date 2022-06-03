@@ -1,21 +1,42 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="styles.css">
-        <link rel="icon" type="image/png" href="images/snake.png">
-        <title>Snake Game</title>
-    </head>
-    <body>
-        <h2 class="title">🐍 Snake Game</h2>
-        <div class="center">
-            <canvas id="canvas"></canvas>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="images/snake.png">
+    <title>Snake Game</title>
+    <link href='https://css.gg/play-button.css' rel='stylesheet'>
+</head>
+
+<body>
+    <h2 class="title">🐍 Snake Game</h2>
+    <div class="play-buttons">
+        <div class="button-play" onclick="changePause(false)">
+            <i class="gg-play-button"></i>
         </div>
-        <div class="relative center" id="full-container">
+        <div class="button-play margin" onclick="changePause(true)">
+            <i class="gg-play-pause">
+                <i class="gg-play-pause-line"></i>
+            <i class="gg-play-pause-line"></i>
+            </i>
+        </div>
+        <div class="button-play" onclick="loadNewGame()">
+            <i class="gg-play-stop"></i>
+        </div>
+    </div>
+    <div class="center">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="relative center" id="full-container">
+        <div class="wrapper">
             <div class="container">
-                <p id="mensaje" class="mensaje">hola</p>
-                <button id="buttonNewGame" class="botonNuevoJuego">New Game</button>
+                <h2>¡HAS PERDIDO!</h2>
+                <p id="mensaje"></p>
+                <button id="buttonNewGame" class="botonNuevoJuego" onclick="loadNewGame()">New Game</button>
             </div>
         </div>
-        <script src="index.js"></script>
-    </body>
+    </div>
+    <script src="index.js"></script>
+</body>
+
 </html>

@@ -7,22 +7,18 @@ canvas {
     font-family: "Arial";
 }
 
-.mensaje {
-    color: green;
-    font-family: "Arial";
-    text-align: center;
-    padding: 0.5em;
-}
-
 .center {
     display: flex;
     justify-content: center;
 }
 
 .container {
-    background-color: rgba(221, 235, 74, 0.918);
+    color: black;
+    background-color: rgb(218, 218, 218);
     padding: 2em;
-    border-radius: 7%;
+    border-radius: 20px;
+    font-family: "Arial";
+    text-align: center;
 }
 
 .relative {
@@ -30,29 +26,96 @@ canvas {
 }
 
 .botonNuevoJuego {
-	box-shadow:inset 0px 1px 0px 0px #f9eca0;
-	background:linear-gradient(to bottom, #f0c911 5%, #f2ab1e 100%);
-	background-color:#f0c911;
-	border-radius:6px;
-	border:1px solid #e65f44;
-	display:inline-block;
-	cursor:pointer;
-	color:#c92200;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ded17c;
+    box-shadow: inset 0px 1px 0px 0px #f9eca0;
+    background: #4ef037;
+    background-color: #f0c911;
+    border-radius: 6px;
+    border: 1px solid #e65f44;
+    display: inline-block;
+    cursor: pointer;
+    color: #c92200;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #ded17c;
     width: 100%;
 }
+
 .botonNuevoJuego:hover {
-	background:linear-gradient(to bottom, #f2ab1e 5%, #f0c911 100%);
-	background-color:#f2ab1e;
-}
-.botonNuevoJuego:active {
-	position:relative;
-	top:1px;
+    background: linear-gradient(to bottom, #f2ab1e 5%, #f0c911 100%);
+    background-color: #f2ab1e;
 }
 
 
+/*.botonNuevoJuego:active {
+    position: relative;
+    top: 1px;
+}
+*/
+
+#full-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.613);
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.play-buttons {
+    display: flex;
+    align-content: space-between;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.button-play {
+    background-color: white;
+    display: flex;
+    box-shadow: 0 0 5px rgb(211, 209, 209);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 0.3em;
+}
+
+.button-play:hover {
+    box-shadow: 0 0 10px rgb(211, 209, 209);
+}
+
+.gg-play-pause {
+    width: 22px;
+    height: 22px;
+    transform: scale(0.4);
+    display: flex;
+    justify-content: space-between;
+}
+
+i {
+    color: rgb(198, 198, 198);
+}
+
+.gg-play-stop {
+    width: 22px;
+    height: 22px;
+    transform: scale(0.4);
+    background-color: rgb(198, 198, 198);
+}
+
+.gg-play-pause-line {
+    width: 30%;
+    background-color: rgb(198, 198, 198);
+}
+
+.margin {
+    margin: 0 1em;
+}

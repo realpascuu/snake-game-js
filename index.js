@@ -5,7 +5,7 @@ class Game {
         this.apple = new Apple(this.snake)
     }
 
-    rebootApple(){
+    rebootApple() {
         this.apple = new Apple(this.snake)
     }
 }
@@ -18,39 +18,38 @@ class Snake {
         // Tamaño de inicio de la serpiente
         this.size = size;
         // Cola actual de la serpiente (1 (cabeza))
-        this.tail = [
-            {   x: this.x, 
-                y: this.y 
-            }
-        ];
+        this.tail = [{
+            x: this.x,
+            y: this.y
+        }];
         // Posición actual de orientación (abajo)
         this.rotateX = 0;
         this.rotateY = 1;
     }
 
-    move(){
+    move() {
         var newRect;
-        var auxTail = {x: 0, y: 0} 
+        var auxTail = { x: 0, y: 0 }
         if (this.tail.at(-1)) {
             auxTail.x = this.tail.at(-1).x
             auxTail.y = this.tail.at(-1).y
         }
-        if(this.rotateX == 1){
+        if (this.rotateX == 1) {
             newRect = {
                 x: auxTail.x + this.size,
                 y: auxTail.y
             }
-        } else if(this.rotateX == -1){
+        } else if (this.rotateX == -1) {
             newRect = {
                 x: auxTail.x - this.size,
                 y: auxTail.y
             }
-        } else if(this.rotateY == 1){
+        } else if (this.rotateY == 1) {
             newRect = {
                 x: auxTail.x,
                 y: auxTail.y + this.size
             }
-        } else if(this.rotateY == -1){
+        } else if (this.rotateY == -1) {
             newRect = {
                 x: auxTail.x,
                 y: auxTail.y - this.size
@@ -58,7 +57,7 @@ class Snake {
         }
         // Borramos la cola
         this.tail.shift()
-        // Añadimos nuevo movimiento
+            // Añadimos nuevo movimiento
         this.tail.push(newRect)
     }
 }
@@ -66,20 +65,24 @@ class Snake {
 class Apple {
     constructor(snake) {
         var isTouching;
-        while(true){
+        while (true) {
             isTouching = false;
             this.x = Math.floor(Math.random() * canvas.width / snake.size) * snake.size;
             this.y = Math.floor(Math.random() * canvas.height / snake.size) * snake.size;
             // Buscamos si la posición dada coincide con la serpiente
             isTouching = snake.tail.some((e) => e.x === this.x && e.y === this.y);
             // Si no toca, hemos dado con la posición
-            if(!isTouching)
+            if (!isTouching)
                 break;
         }
         this.color = "red"
         this.size = snake.size
     }
 }
+
+let loop;
+
+let pause = false;
 
 var canvas = document.getElementById('canvas')
 
@@ -100,19 +103,27 @@ var container = document.getElementById('full-container')
 container.style.display = 'none'
 var canvasContext = canvas.getContext('2d')
 
+const changePause = (value) => {
+    console.log(value, pause)
+    if (value !== pause) {
+        pause = value;
+        (pause) ? clearInterval(loop): gameLoop();
+    }
+}
+
 window.onload = () => {
     gameLoop();
 }
 
 const gameLoop = () => {
-    setInterval(show, 1000/15)
+    loop = setInterval(show, 1000 / 15)
 }
 
 const show = () => {
-    if(game.isPlaying){
-        if(!update()) {
+    if (game.isPlaying) {
+        if (!update()) {
             game.isPlaying = false
-            mensaje.innerHTML = "¡HAS PERDIDO! \nTu puntuación es de " + (game.snake.tail.length + 1)
+            mensaje.innerHTML = "Tu puntuación es de " + (game.snake.tail.length + 1)
             container.style.display = 'flex'
         }
         draw()
@@ -120,9 +131,9 @@ const show = () => {
 }
 
 const update = () => {
-    canvasContext.clearRect(0,0, canvas.width, canvas.height)
+    canvasContext.clearRect(0, 0, canvas.width, canvas.height)
     game.snake.move()
-    if(checkIfLose()){
+    if (checkIfLose()) {
         return false
     }
     checkHitWall()
@@ -131,8 +142,8 @@ const update = () => {
 }
 
 const eatApple = () => {
-    if(game.snake.tail.at(-1).x == game.apple.x && game.snake.tail.at(-1).y == game.apple.y){
-        game.snake.tail.push({ x: game.apple.x, y: game.apple.y})
+    if (game.snake.tail.at(-1).x == game.apple.x && game.snake.tail.at(-1).y == game.apple.y) {
+        game.snake.tail.push({ x: game.apple.x, y: game.apple.y })
         game.rebootApple()
     }
 }
@@ -145,20 +156,20 @@ const checkIfLose = () => {
 }
 
 const checkHitWall = () => {
-    if(game.snake.tail.at(-1).x == canvas.width){
+    if (game.snake.tail.at(-1).x == canvas.width) {
         game.snake.tail.at(-1).x = 0
-    } else if(game.snake.tail.at(-1).x < 0){
+    } else if (game.snake.tail.at(-1).x < 0) {
         game.snake.tail.at(-1).x = canvas.width - game.snake.size
-    } else if(game.snake.tail.at(-1).y == canvas.height){
+    } else if (game.snake.tail.at(-1).y == canvas.height) {
         game.snake.tail.at(-1).y = 0
-    } else if(game.snake.tail.at(-1).y < 0){
+    } else if (game.snake.tail.at(-1).y < 0) {
         game.snake.tail.at(-1).y = canvas.height - game.snake.size
     }
 }
 
 const draw = () => {
-    createRect(0,0, canvas.width, canvas.height, 'black')
-    game.snake.tail.forEach( (element) => {
+    createRect(0, 0, canvas.width, canvas.height, 'black')
+    game.snake.tail.forEach((element) => {
         createRect(element.x + game.snake.size * 0.125, element.y + game.snake.size * 0.125,
             game.snake.size - game.snake.size * 0.25, game.snake.size - game.snake.size * 0.25, 'white');
     });
@@ -166,7 +177,7 @@ const draw = () => {
     canvasContext.font = "20px Arial"
     canvasContext.fillStyle = "#00FF42"
     canvasContext.fillText("Score: " + (game.snake.tail.length + 1), canvas.width - canvas.width * 0.25, canvas.height * 0.05);
-    createRect(game.apple.x + game.apple.size * 0.25, game.apple.y + game.apple.size * 0.25, 
+    createRect(game.apple.x + game.apple.size * 0.25, game.apple.y + game.apple.size * 0.25,
         game.apple.size - game.apple.size * 0.5, game.apple.size - game.apple.size * 0.5, game.apple.color)
 }
 
@@ -178,17 +189,17 @@ const createRect = (x, y, width, height, color) => {
 // EVENTS
 
 window.addEventListener("keydown", (event) => {
-    setTimeout( () => {
-        if(event.code == 'ArrowLeft' && game.snake.rotateX != 1){
+    setTimeout(() => {
+        if (event.code == 'ArrowLeft' && game.snake.rotateX != 1) {
             game.snake.rotateX = -1;
             game.snake.rotateY = 0;
-        } else if(event.code == 'ArrowUp' && game.snake.rotateY != 1){
+        } else if (event.code == 'ArrowUp' && game.snake.rotateY != 1) {
             game.snake.rotateX = 0;
             game.snake.rotateY = -1;
-        } else if(event.code == 'ArrowRight' && game.snake.rotateX != -1){
+        } else if (event.code == 'ArrowRight' && game.snake.rotateX != -1) {
             game.snake.rotateX = 1;
             game.snake.rotateY = 0;
-        } else if(event.code == 'ArrowDown' && game.snake.rotateY != -1){
+        } else if (event.code == 'ArrowDown' && game.snake.rotateY != -1) {
             game.snake.rotateX = 0;
             game.snake.rotateY = 1;
         }
@@ -197,8 +208,9 @@ window.addEventListener("keydown", (event) => {
 
 var buttonNew = document.getElementById('buttonNewGame')
 
-buttonNew.addEventListener("click", (event) => {
+const loadNewGame = () => {
+    if (pause) changePause(false);
     game = new Game(x, y, size)
     container.style.display = 'none'
-    mensaje.innerHTML = ""
-})
+    mensaje.innerHTML = "";
+}
